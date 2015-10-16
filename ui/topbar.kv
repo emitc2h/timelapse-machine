@@ -1,0 +1,31 @@
+<TopBar@BoxLayout>:
+    orientation: 'horizontal'
+    padding: 7
+    spacing: 5
+    canvas.before:
+        Color:
+            rgb: 0.2, 0.2, 0.2
+        Line:
+            rectangle: self.pos[0], self.pos[1], self.width, self.height
+            width: 2
+    Button:
+        id: _button_open
+        text: 'open'
+        size_hint_x: None
+        width: 150
+    Label:
+        text: '/Users/michel-trottiermcdonald/...'
+        color: 1,1,1,0.5
+        halign: 'left'
+        valign: 'middle'
+        text_size: self.size
+    Button:
+        id: _button_save
+        text: 'save'
+        size_hint_x: None
+        width: 150
+    Button:
+        id: _button_render
+        text: 'render'
+        size_hint_x: None
+        width: 150

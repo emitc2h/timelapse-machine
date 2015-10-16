@@ -1,0 +1,55 @@
+<TLM>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgb: 0.1, 0.1, 0.1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        orientation: 'vertical'
+        padding: 5
+        spacing: 7
+        AnchorLayout:
+            anchor_y: 'top'
+            anchor_x: 'left'
+            size_hint_y: None
+            height: 60
+            TopBar:
+                id: _top_bar
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 7
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 7
+                BoxLayout:
+                    orientation: 'horizontal'
+                    spacing: 7
+                    AnchorLayout:
+                        anchor_y: 'top'
+                        anchor_x: 'left'
+                        size_hint_x: None
+                        width: 500
+                        Selector:
+                            id: _selector
+                    FloatLayout:
+                        canvas.before:
+                            Color:
+                                rgb: 0,0,0
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                AnchorLayout:
+                    anchor_y: 'bottom'
+                    anchor_x: 'left'
+                    size_hint_y: None
+                    height: 500
+                    CurveEditor:
+                        id: _curve_editor
+            AnchorLayout:
+                anchor_x: 'right'
+                anchor_y: 'top'
+                size_hint_x: None
+                width: 500
+                Configuration:
+                    id: _configuration
