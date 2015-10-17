@@ -1,4 +1,10 @@
 <TopBar@BoxLayout>:
+
+    path: _path
+    button_open: _button_open
+    button_save: _button_save
+    button_render: _button_render
+
     orientation: 'horizontal'
     padding: 7
     spacing: 5
@@ -14,7 +20,8 @@
         size_hint_x: None
         width: 150
     Label:
-        text: '/Users/michel-trottiermcdonald/...'
+        id: _path
+        text: '    Click \'open\' to find the directory containing your sequence'
         color: 1,1,1,0.5
         halign: 'left'
         valign: 'middle'

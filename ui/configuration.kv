@@ -36,25 +36,25 @@
                 rectangle: self.pos[0], self.pos[1], self.width, self.height
                 width: 2
         ScrollView:
-            StackLayout:
-                padding: 5
-                size_hint_y: None
-                height: _butt1.height + _butt2.height + _butt3.height
-                Button:
-                    id: _butt1
-                    text: 'button 1'
-                    size_hint_y: None
-                    height: 50
-                Button:
-                    id: _butt2
-                    text: 'button 2'
-                    size_hint_y: None
-                    height: 50
-                Button:
-                    id: _butt3
-                    text: 'button 3'
-                    size_hint_y: None
-                    height: 50
+            # StackLayout:
+            #     padding: 5
+            #     size_hint_y: None
+            #     height: _butt1.height + _butt2.height + _butt3.height
+            #     Button:
+            #         id: _butt1
+            #         text: 'button 1'
+            #         size_hint_y: None
+            #         height: 50
+            #     Button:
+            #         id: _butt2
+            #         text: 'button 2'
+            #         size_hint_y: None
+            #         height: 50
+            #     Button:
+            #         id: _butt3
+            #         text: 'button 3'
+            #         size_hint_y: None
+            #         height: 50
     BoxLayout:
         canvas.before:
             Color:
@@ -63,27 +63,27 @@
                 rectangle: self.pos[0], self.pos[1], self.width, self.height
                 width: 2
         ScrollView:
-            StackLayout:
-                padding: 5
-                size_hint_y: None
-                height: _butt1.height + _butt2.height + _butt3.height + _label.texture_size[1]
-                Button:
-                    id: _butt1
-                    text: 'button 1'
-                    size_hint_y: None
-                    height: 50
-                Button:
-                    id: _butt2
-                    text: 'button 2'
-                    size_hint_y: None
-                    height: 50
-                Button:
-                    id: _butt3
-                    text: 'button 3'
-                    size_hint_y: None
-                    height: 50
-                Label:
-                    id: _label
-                    text: str('Am I scrolling like I am supposed to? '*50)
-                    text_size: self.width, None
+            # StackLayout:
+            #     padding: 5
+            #     size_hint_y: None
+            #     height: _butt1.height + _butt2.height + _butt3.height + _label.texture_size[1]
+            #     Button:
+            #         id: _butt1
+            #         text: 'button 1'
+            #         size_hint_y: None
+            #         height: 50
+            #     Button:
+            #         id: _butt2
+            #         text: 'button 2'
+            #         size_hint_y: None
+            #         height: 50
+            #     Button:
+            #         id: _butt3
+            #         text: 'button 3'
+            #         size_hint_y: None
+            #         height: 50
+            #     Label:
+            #         id: _label
+            #         text: str('Am I scrolling like I am supposed to? '*50)
+            #         text_size: self.width, None
 
