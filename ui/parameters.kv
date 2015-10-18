@@ -50,6 +50,7 @@
             on_text_validate: root.enter_fps()
     BoxLayout:
         spacing: 5
+        padding: 0,0,5,0
         orientation: 'horizontal'
         size_hint_y: None
         height: 40
@@ -82,12 +83,13 @@
             text_size: self.size
         TextInput:
             id: _set_width
-            text: '900'
+            text: 'None'
             multiline: False
             halign: 'center'
             valign: 'middle'
             size_hint_x: None
             width: 120
+            on_text_validate: root.enter_width()
     BoxLayout:
         spacing: 5
         orientation: 'horizontal'
@@ -101,14 +103,16 @@
             text_size: self.size
         TextInput:
             id: _set_height
-            text: '600'
+            text: 'None'
             multiline: False
             halign: 'center'
             valign: 'middle'
             size_hint_x: None
             width: 120
+            on_text_validate: root.enter_height()
     Button:
         id: _button_original_size
         size_hint_y: None
         height: 40
         text: 'original size'
+        on_press: root.default()

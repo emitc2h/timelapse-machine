@@ -8,6 +8,9 @@ class Sequence:
 
     frames = []
     textures = []
+    width = None
+    height = None
+    aspect_ratio = None
 
     ## --------------------------------------
     def __init__(self, path, img_ext='.jpg', img_range=(None, None)):
@@ -18,7 +21,7 @@ class Sequence:
         self.path  = path
         self.path  = path.replace('~', home)
         self.files = os.listdir(self.path)
-        self.files = sorted([f for f in self.files if f.lower().endswith(img_ext)])
+        self.files = sorted([os.path.join(self.path,f) for f in self.files if f.lower().endswith(img_ext)])
 
         if img_range[0] is None: img_range = (0, img_range[1])
         if img_range[1] is None: img_range = (img_range[0], len(self.files))
@@ -38,7 +41,9 @@ class Sequence:
 
         frame = cv2.imread(os.path.join(self.path, self.files[self.loaded_frames]))
 
-        aspect_ratio = float(frame.shape[1])/frame.shape[0]
+        self.height = frame.shape[0]
+        self.width  = frame.shape[1]
+        self.aspect_ratio = float(self.width)/self.height
 
         ## Calculate total video size
         total_size = self.n_frames * float(frame.shape[0]*frame.shape[1]*frame.shape[2]*8) / (1024)**3

@@ -2,11 +2,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 
+from core.codecs import codecs
+
 codec_selector_height = 40
-codecs = ['raw', 'mpeg', 'h264', 'xvid', 'more', 'codecs', 'available']
+codecs = codecs.keys()
 
 ## ==================================
 class CodecSelector(BoxLayout):
+
+    selected_codec = 'raw'
 
     ## ----------------------------------
     def __init__(self, **kwargs):
@@ -61,6 +65,7 @@ class CodecSelector(BoxLayout):
         ## Put the text of the selected item on the main button
         def f_dropdown_label(*args):
             self.button_main.text = args[1].text
+            self.selected_codec = args[1].text
         self.dropdown.bind(on_select=f_dropdown_label)
 
         ## Group items

@@ -11,8 +11,12 @@ from kivy.factory import Factory
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.garden.filebrowser import FileBrowser
+from kivy.graphics import Rectangle
+from kivy.clock import Clock
 
-import os
+import os, cv2
+
+from ui.core.codecs import codecs
 
 ## Load external UI elements
 Builder.load_file('ui/topbar.kv')
@@ -38,8 +42,9 @@ class TLM(AnchorLayout):
     """
     The main TLM interface
     """
-    topbar = ObjectProperty(None)
-    viewer = ObjectProperty(None)
+    topbar     = ObjectProperty(None)
+    viewer     = ObjectProperty(None)
+    parameters = ObjectProperty(None)
 
 
 
@@ -49,8 +54,12 @@ class Root(FloatLayout):
     The master widget
     """
 
-    tlm        = ObjectProperty(None)
-    opendialog = ObjectProperty(None)
+    out           = None
+    path          = None
+    tlm           = ObjectProperty(None)
+    opendialog    = ObjectProperty(None)
+    render_clock  = None
+    render_screen = None
 
 
     ## ----------------------------------
@@ -83,11 +92,78 @@ class Root(FloatLayout):
         specify the path to load
         """
         if len(filename) > 0:
-            path = os.path.join(path, filename[0])
-            self.tlm.topbar.path.text = '    ' + path
-            self.tlm.viewer.load(path)
+            self.path = os.path.join(path, filename[0])
+            self.tlm.topbar.path.text = '    ' + self.path
+            self.tlm.viewer.load(self.path)
 
         self.dismiss_popup()
+
+
+    ## ----------------------------------
+    def render(self, *args, **kwargs):
+        """
+        render the time-lapse
+        """
+
+        if self.path is None: return
+
+        self.codec = codecs[self.tlm.parameters.set_codec.selected_codec]
+
+        self.out = cv2.VideoWriter(
+            '{0}{1}'.format(self.path.rstrip('/'), self.codec.ext),
+            self.codec.fourcc,
+            self.tlm.parameters.fps_current,
+            (self.tlm.parameters.width_current, self.tlm.parameters.height_current),
+            isColor=True
+            )
+
+        self.tlm.viewer.slider.value = 0
+
+        self.render_clock = Clock.schedule_interval(self.render_frame, 0)
+
+        with self.tlm.viewer.screen.canvas.after:
+            self.render_screen = Rectangle(
+                source='img/render_screen.png',
+                pos=self.tlm.viewer.pos,
+                size=self.tlm.viewer.size)
+
+        self.tlm.viewer.disable()
+
+
+    ## ----------------------------------
+    def render_frame(self, *args, **kwargs):
+        """
+        Add one frame to the movie
+        """
+
+        frame_path = self.tlm.viewer.sequence.files[self.tlm.viewer.slider.value]
+
+        img = cv2.imread(frame_path)
+        img = cv2.resize(
+            img,
+            (self.tlm.parameters.width_current, self.tlm.parameters.height_current),
+            interpolation=cv2.INTER_AREA
+            )
+
+        self.out.write(img)
+
+        self.tlm.viewer.slider.value +=1
+
+        ## When done, do the following
+        if self.tlm.viewer.slider.value > self.tlm.viewer.sequence.n_frames -1:
+            self.out.release()
+            os.rename(
+                '{0}{1}'.format(self.path.rstrip('/'), self.codec.ext),
+                '{0}{1}'.format(self.path.rstrip('/'), self.codec.rename_ext)
+                )
+
+            Clock.unschedule(self.render_clock)
+            self.render_clock = None
+
+            self.tlm.viewer.screen.canvas.after.remove(self.render_screen)
+            self.tlm.viewer.enable()
+
+
 
 
 
@@ -108,6 +184,7 @@ class TLMApp(App):
         root.add_widget(tlm)
         root.tlm = tlm
         tlm.topbar.button_open.bind(on_release=root.show_load)
+        tlm.topbar.button_render.bind(on_release=root.render)
         return root
 
 

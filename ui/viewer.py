@@ -88,17 +88,7 @@ class Viewer(BoxLayout):
                 Clock.unschedule(self.load_clock)
                 self.load_clock = None
 
-            ## Enable slider
-            self.slider.disabled = False
-
-            ## Enable buttons
-            self.controls.button_begin.disabled = False
-            self.controls.button_back.disabled = False
-            self.controls.button_reverse.disabled = False
-            self.controls.button_pause.disabled = False
-            self.controls.button_play.disabled = False
-            self.controls.button_forward.disabled = False
-            self.controls.button_end.disabled = False
+            self.enable()
 
             ## Bind buttons
             self.controls.button_begin.bind(on_press=self.begin)
@@ -114,6 +104,18 @@ class Viewer(BoxLayout):
 
             ## Return the slider to the beginning
             self.slider.value = 0
+
+            ## Pass on parameters
+            self.parameters.width_default = self.sequence.width
+            self.parameters.width_current = self.sequence.width
+
+            self.parameters.height_default = self.sequence.height
+            self.parameters.height_current = self.sequence.height
+
+            self.parameters.aspect_ratio_default = self.sequence.aspect_ratio
+            self.parameters.aspect_ratio_current = self.sequence.aspect_ratio
+
+            self.parameters.update_fields()
 
 
 
@@ -193,6 +195,44 @@ class Viewer(BoxLayout):
 
         self.pause()
         self.slider.value = self.sequence.n_frames - 1
+
+
+    ## ---------------------------------------
+    def enable(self, *args):
+        """
+        enable the viewer controls
+        """
+
+        ## Enable slider
+        self.slider.disabled = False
+
+        ## Enable buttons
+        self.controls.button_begin.disabled = False
+        self.controls.button_back.disabled = False
+        self.controls.button_reverse.disabled = False
+        self.controls.button_pause.disabled = False
+        self.controls.button_play.disabled = False
+        self.controls.button_forward.disabled = False
+        self.controls.button_end.disabled = False
+
+
+    ## ---------------------------------------
+    def disable(self, *args):
+        """
+        disable the viewer controls
+        """
+
+        ## Enable slider
+        self.slider.disabled = True
+
+        ## Enable buttons
+        self.controls.button_begin.disabled =   True
+        self.controls.button_back.disabled =    True
+        self.controls.button_reverse.disabled = True
+        self.controls.button_pause.disabled =   True
+        self.controls.button_play.disabled =    True
+        self.controls.button_forward.disabled = True
+        self.controls.button_end.disabled =     True
 
 
 

@@ -6,8 +6,16 @@ from kivy.properties import ObjectProperty
 ## ==================================
 class Parameters(BoxLayout):
 
-    fps_default = 24.0
-    fps_current = fps_default
+    fps_default   = 24.0
+    fps_current   = fps_default
+
+    width_default  = None
+    height_default = None
+    width_current  = None
+    height_current = None
+
+    aspect_ratio_default = None
+    aspect_ratio_current = None
 
     set_codec            = ObjectProperty(None)
     set_fps              = ObjectProperty(None)
@@ -35,3 +43,55 @@ class Parameters(BoxLayout):
 
         self.fps_current = new_fps
         self.set_fps.text = str(self.fps_current)
+
+
+    ## ---------------------------------------
+    def update_fields(self):
+        """
+        update fields
+        """
+
+        self.set_width.text = str(self.width_current)
+        self.set_height.text = str(self.height_current)
+
+
+    ## ---------------------------------------
+    def default(self):
+        """
+        back to default size
+        """
+
+        self.width_current = self.width_default
+        self.height_current = self.height_default
+        self.aspect_ratio_current = self.aspect_ratio_default
+        self.update_fields()
+
+
+    ## ---------------------------------------
+    def enter_width(self):
+        """
+        Enter the width
+        """
+
+        self.width_current = int(self.set_width.text)
+        if self.keep_aspect_ratio.active:
+            self.height_current = int(self.width_current/self.aspect_ratio_current)
+        else:
+            self.aspect_ratio_current = float(self.width_current)/self.height_current
+        self.update_fields()
+
+
+    ## ---------------------------------------
+    def enter_height(self):
+        """
+        Enter the width
+        """
+
+        self.height_current = int(self.set_height.text)
+        if self.keep_aspect_ratio.active:
+            self.width_current = int(self.height_current*self.aspect_ratio_current)
+        else:
+            self.aspect_ratio_current = float(self.width_current)/self.height_current
+        self.update_fields()
+
+
