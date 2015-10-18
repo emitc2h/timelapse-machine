@@ -1,12 +1,6 @@
-from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.graphics import Line, Color
-
-from functools import partial
 
 codec_selector_height = 40
 codecs = ['raw', 'mpeg', 'h264', 'xvid', 'more', 'codecs', 'available']

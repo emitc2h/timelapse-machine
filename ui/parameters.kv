@@ -1,4 +1,15 @@
-<Basic@BoxLayout>:
+#:import selector ui.selector
+#:import parameters ui.parameters
+
+<Parameters@BoxLayout>:
+
+    set_codec: _set_codec
+    set_fps: _set_fps
+    keep_aspect_ratio: _keep_aspect_ratio
+    set_width: _set_width
+    set_height: _set_height
+    button_original_size: _button_original_size
+
     orientation: 'vertical'
     size_hint_y: None
     height: 301
@@ -6,12 +17,17 @@
     padding: 7
     canvas.before:
         Color:
+            rgb: 0.1, 0.1, 0.1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+        Color:
             rgb: 0.2, 0.2, 0.2
         Line:
             rectangle: self.pos[0], self.pos[1], self.width, self.height
             width: 2
     CodecSelector:
-        id: _code_selector
+        id: _set_codec
     BoxLayout:
         spacing: 5
         orientation: 'horizontal'
@@ -24,12 +40,14 @@
             valign: 'middle'
             text_size: self.size
         TextInput:
-            text: '24.0'
+            id: _set_fps
+            text: str(root.fps_default)
             multiline: False
             halign: 'center'
             valign: 'middle'
             size_hint_x: None
             width: 120
+            on_text_validate: root.enter_fps()
     BoxLayout:
         spacing: 5
         orientation: 'horizontal'
@@ -42,6 +60,7 @@
             valign: 'middle'
             text_size: self.size
         CheckBox:
+            id: _keep_aspect_ratio
             size_hint_x: None
             width: 40
             canvas:
@@ -62,6 +81,7 @@
             valign: 'middle'
             text_size: self.size
         TextInput:
+            id: _set_width
             text: '900'
             multiline: False
             halign: 'center'
@@ -80,6 +100,7 @@
             valign: 'middle'
             text_size: self.size
         TextInput:
+            id: _set_height
             text: '600'
             multiline: False
             halign: 'center'
@@ -87,6 +108,7 @@
             size_hint_x: None
             width: 120
     Button:
+        id: _button_original_size
         size_hint_y: None
         height: 40
         text: 'original size'

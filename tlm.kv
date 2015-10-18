@@ -1,8 +1,6 @@
 <TLM>:
-    path: _top_bar.path
-    button_open: _top_bar.button_open
-    button_save: _top_bar.button_save
-    button_render: _top_bar.button_render
+    topbar: _top_bar
+    viewer: _viewer
 
     BoxLayout:
         canvas.before:
@@ -21,6 +19,7 @@
             height: 60
             TopBar:
                 id: _top_bar
+                tlm: root
         BoxLayout:
             orientation: 'horizontal'
             spacing: 7
@@ -34,9 +33,14 @@
                         anchor_y: 'top'
                         anchor_x: 'left'
                         size_hint_x: None
-                        width: 500
-                        Basic:
-                            id: _basic
+                        width: 600
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: 7
+                            Parameters:
+                                id: _parameters
+                            BoxLayout:
+                                orientation: 'vertical'
                     RelativeLayout:
                         canvas.before:
                             Color:
@@ -44,16 +48,14 @@
                             Rectangle:
                                 size: self.size
                                 pos: 0,0
-                        Image:
-                            pos: 0,0
-                            size: self.size
-                            allow_stretch: True
-                            source: 'img/tlm_logo.png'
+                        Viewer:
+                            id: _viewer
+                            parameters: _parameters
                 AnchorLayout:
                     anchor_y: 'bottom'
                     anchor_x: 'left'
                     size_hint_y: None
-                    height: 500
+                    height: 400
                     CurveEditor:
                         id: _curve_editor
             AnchorLayout:
@@ -66,10 +68,7 @@
 
 <OpenDialog>:
 
-    button_cancel: _button_cancel
-    button_load: _button_load
     filebrowser: _filebrowser
-
 
     BoxLayout:
         size: root.size
@@ -78,12 +77,3 @@
         FileBrowser:
             id: _filebrowser
             dirselect: True
-        BoxLayout:
-            size_hint_y: None
-            height: 50
-            Button:
-                id: _button_cancel
-                text: "Cancel"
-            Button:
-                id: _button_load
-                text: "Load"

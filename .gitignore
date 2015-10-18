@@ -1,1 +1,4 @@
 *.pyc
+*.DS_Store
+TLM.sublime-project
+TLM.sublime-workspace

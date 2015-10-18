@@ -12,8 +12,6 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.garden.filebrowser import FileBrowser
 
-from ui.selector import CodecSelector
-
 import os
 
 ## Load external UI elements
@@ -21,7 +19,7 @@ Builder.load_file('ui/topbar.kv')
 Builder.load_file('ui/configuration.kv')
 Builder.load_file('ui/viewer.kv')
 Builder.load_file('ui/curveeditor.kv')
-Builder.load_file('ui/basic.kv')
+Builder.load_file('ui/parameters.kv')
 
 
 ## ==================================
@@ -36,26 +34,12 @@ class OpenDialog(FloatLayout):
 
 
  ## ==================================
-class TopBar(BoxLayout):
-    """
-    The top bar in the TLM interface
-    """
-    path          = ObjectProperty(None)
-    button_open   = ObjectProperty(None)
-    button_save   = ObjectProperty(None)
-    button_render = ObjectProperty(None)
-
-
-
- ## ==================================
 class TLM(AnchorLayout):
     """
     The main TLM interface
     """
-    path          = ObjectProperty(None)
-    button_open   = ObjectProperty(None)
-    button_save   = ObjectProperty(None)
-    button_render = ObjectProperty(None)
+    topbar = ObjectProperty(None)
+    viewer = ObjectProperty(None)
 
 
 
@@ -65,7 +49,6 @@ class Root(FloatLayout):
     The master widget
     """
 
-    path       = None
     tlm        = ObjectProperty(None)
     opendialog = ObjectProperty(None)
 
@@ -85,18 +68,24 @@ class Root(FloatLayout):
         self.opendialog = OpenDialog()
 
         ## Bind the buttons
-        self.opendialog.button_cancel.bind(on_release=self.dismiss_popup)
         def f_load(*args, **kwargs):
             self.load(self.opendialog.filebrowser.path, self.opendialog.filebrowser.selection)
-        self.opendialog.button_load.bind(on_release=f_load)
+        self.opendialog.filebrowser.bind(on_canceled=self.dismiss_popup, on_success=f_load)
+
+        ## Create and open the popup in which the open dialog is placed
         self._popup = Popup(title="locate directory", content=self.opendialog, size_hint=(0.9, 0.9))
         self._popup.open()
 
 
     ## ----------------------------------
     def load(self, path, filename, *args, **kwargs):
-        self.tlm.path.text = '    ' + os.path.join(path, filename[0])
-        self.path = os.path.join(path, filename[0])
+        """
+        specify the path to load
+        """
+        if len(filename) > 0:
+            path = os.path.join(path, filename[0])
+            self.tlm.topbar.path.text = '    ' + path
+            self.tlm.viewer.load(path)
 
         self.dismiss_popup()
 
@@ -118,7 +107,7 @@ class TLMApp(App):
         root = Root()
         root.add_widget(tlm)
         root.tlm = tlm
-        tlm.button_open.bind(on_release=root.show_load)
+        tlm.topbar.button_open.bind(on_release=root.show_load)
         return root
 
 

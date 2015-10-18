@@ -1,0 +1,117 @@
+#:import viewer ui.viewer
+
+<Controls>:
+    
+    button_begin: _button_begin
+    button_back: _button_back
+    button_reverse: _button_reverse
+    button_pause: _button_pause
+    button_play: _button_play
+    button_forward: _button_forward
+    button_end: _button_end
+
+    orientation: 'horizontal'
+    height: 100
+    size_hint_y: None
+    padding: 0.5*(self.width - 7*79 + 1), 15, 0.5*(self.width - 7*79 + 1), 25
+    BoxLayout:
+        size: 79, root.height
+        size_hint: None, None
+        Button:
+            id: _button_begin
+            size: 49,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_begin.png'
+            background_down: 'img/button_begin_pressed.png'
+            disabled: True
+    BoxLayout:
+        size: 79, root.height
+        size_hint: None, None
+        Button:
+            id: _button_back
+            size: 49,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_back.png'
+            background_down: 'img/button_back_pressed.png'
+            disabled: True
+    BoxLayout:
+        size: 79, root.height
+        size_hint: None, None
+        Button:
+            id: _button_reverse
+            size: 49,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_reverse.png'
+            background_down: 'img/button_reverse_pressed.png'
+            disabled: True
+    BoxLayout:
+        size: 80, root.height
+        size_hint: None, None
+        Button:
+            id: _button_pause
+            size: 50,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_pause.png'
+            background_down: 'img/button_pause_pressed.png'
+            disabled: True
+    BoxLayout:
+        size: 79, root.height
+        size_hint: None, None
+        Button:
+            id: _button_play
+            size: 49,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_play.png'
+            background_down: 'img/button_play_pressed.png'
+            disabled: True
+    BoxLayout:
+        size: 79, root.height
+        size_hint: None, None
+        Button:
+            id: _button_forward
+            size: 49,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_forward.png'
+            background_down: 'img/button_forward_pressed.png'
+            disabled: True
+    BoxLayout:
+        size: 79, root.height
+        size_hint: None, None
+        Button:
+            id: _button_end
+            size: 49,60
+            size_hint: None, None
+            border: [0,0,0,0]
+            background_normal: 'img/button_end.png'
+            background_down: 'img/button_end_pressed.png'
+            disabled: True
+
+
+<Viewer>:
+    screen: _screen
+    slider: _slider
+    controls: _controls
+    orientation: 'vertical'
+    padding: 10, 10, 10, 10
+    Image:
+        id: _screen
+        allow_stretch: True
+        source: 'img/tlm_logo.png'
+    RelativeLayout:
+        size_hint_y: None
+        height: 70
+        Slider:
+            id: _slider
+            min: 0
+            max: 1
+            value: 0
+            disabled: True
+            on_value: root.update_frame(self.value)
+    Controls:
+        id: _controls
