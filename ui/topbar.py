@@ -6,7 +6,13 @@ class TopBar(BoxLayout):
     """
     The top bar in the TLM interface
     """
-    path          = ObjectProperty(None)
-    button_open   = ObjectProperty(None)
-    button_save   = ObjectProperty(None)
-    button_render = ObjectProperty(None)
+
+    ## Upstream reference to TLM
+    tlm = ObjectProperty(None)
+
+    ## ui elements
+    ui_path   = ObjectProperty(None)
+    ui_open   = ObjectProperty(None)
+    ui_cancel = ObjectProperty(None)
+    ui_save   = ObjectProperty(None)
+    ui_render = ObjectProperty(None)

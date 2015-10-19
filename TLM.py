@@ -1,35 +1,47 @@
+#!/usr/bin/env kivy
+
+## Set initial window size
 from kivy.config import Config
 Config.set('graphics', 'width', '1600')
 Config.set('graphics', 'height', '900')
 
+## kivy imports
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import  BoxLayout
+from kivy.uix.popup import Popup
+from kivy.graphics import Rectangle
+from kivy.garden.filebrowser import FileBrowser
 from kivy.factory import Factory
 from kivy.properties import ObjectProperty
-from kivy.uix.popup import Popup
-from kivy.garden.filebrowser import FileBrowser
-from kivy.graphics import Rectangle
 from kivy.clock import Clock
 
-import os, cv2
+## python imports
+import os
 
+## image processing imports
+import cv2
+
+## TLM imports
 from ui.core.codecs import codecs
 
-## Load external UI elements
+## Load kivy configurations for other objects
 Builder.load_file('ui/topbar.kv')
 Builder.load_file('ui/configuration.kv')
 Builder.load_file('ui/viewer.kv')
 Builder.load_file('ui/curveeditor.kv')
 Builder.load_file('ui/parameters.kv')
 
+from ui.core.tlm import TLM
+
+
 
 ## ==================================
 class OpenDialog(FloatLayout):
     """
-    A class to group properties of the open dialog
+    The dialog that pops up to open a new sequence
     """
     filebrowser   = ObjectProperty(None)
     button_load   = ObjectProperty(None)
@@ -37,21 +49,11 @@ class OpenDialog(FloatLayout):
 
 
 
- ## ==================================
-class TLM(AnchorLayout):
-    """
-    The main TLM interface
-    """
-    topbar     = ObjectProperty(None)
-    viewer     = ObjectProperty(None)
-    parameters = ObjectProperty(None)
-
-
-
 ## ==================================
 class Root(FloatLayout):
     """
-    The master widget
+    The true root widget, which handles the TLM widget and the open dialog widget,
+    takes care of the master functionalities of the program in the top bar.
     """
 
     out           = None
@@ -64,7 +66,10 @@ class Root(FloatLayout):
 
     ## ----------------------------------
     def dismiss_popup(self, *args, **kwargs):
-        self._popup.dismiss()
+        """
+        dismiss the open dialog
+        """
+        self.popup.dismiss()
 
 
     ## ----------------------------------
@@ -82,8 +87,8 @@ class Root(FloatLayout):
         self.opendialog.filebrowser.bind(on_canceled=self.dismiss_popup, on_success=f_load)
 
         ## Create and open the popup in which the open dialog is placed
-        self._popup = Popup(title="locate directory", content=self.opendialog, size_hint=(0.9, 0.9))
-        self._popup.open()
+        self.popup = Popup(title="locate directory", content=self.opendialog, size_hint=(0.9, 0.9))
+        self.popup.open()
 
 
     ## ----------------------------------
@@ -107,7 +112,7 @@ class Root(FloatLayout):
 
         if self.path is None: return
 
-        self.codec = codecs[self.tlm.parameters.set_codec.selected_codec]
+        self.codec = codecs[self.tlm.ui_codec.selected_codec]
 
         self.out = cv2.VideoWriter(
             '{0}{1}'.format(self.path.rstrip('/'), self.codec.ext),
@@ -183,8 +188,9 @@ class TLMApp(App):
         root = Root()
         root.add_widget(tlm)
         root.tlm = tlm
-        tlm.topbar.button_open.bind(on_release=root.show_load)
-        tlm.topbar.button_render.bind(on_release=root.render)
+        tlm.ui_open.bind(on_release=root.show_load)
+        tlm.ui_render.bind(on_release=root.render)
+
         return root
 
 

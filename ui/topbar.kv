@@ -2,10 +2,11 @@
 
 <TopBar>:
 
-    path: _path
-    button_open: _button_open
-    button_save: _button_save
-    button_render: _button_render
+    ui_path:   _path
+    ui_open:   _open
+    ui_save:   _save
+    ui_render: _render
+    ui_cancel: _cancel
 
     orientation: 'horizontal'
     padding: 7
@@ -17,7 +18,7 @@
             rectangle: self.pos[0], self.pos[1], self.width, self.height
             width: 2
     Button:
-        id: _button_open
+        id: _open
         text: 'open'
         size_hint_x: None
         width: 150
@@ -29,12 +30,18 @@
         valign: 'middle'
         text_size: self.size
     Button:
-        id: _button_save
+        id: _cancel
+        text: 'cancel'
+        size_hint_x: None
+        width: 150
+        #on_press: root.tlm.test_button()
+    Button:
+        id: _save
         text: 'save'
         size_hint_x: None
         width: 150
     Button:
-        id: _button_render
+        id: _render
         text: 'render'
         size_hint_x: None
         width: 150

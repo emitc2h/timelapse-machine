@@ -16,10 +16,12 @@ class Viewer(BoxLayout):
     timelapse video
     """
     
-    load_screen = None
+    ## Clocks
     load_clock = None
     play_clock = None
     reverse_clock = None
+
+    load_screen = None
     screen = ObjectProperty(None)
     slider = ObjectProperty(None)
     controls = ObjectProperty(None)

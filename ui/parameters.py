@@ -10,19 +10,24 @@ class Parameters(BoxLayout):
     fps_current   = fps_default
 
     width_default  = None
-    height_default = None
     width_current  = None
+
+    height_default = None
     height_current = None
 
     aspect_ratio_default = None
     aspect_ratio_current = None
 
-    set_codec            = ObjectProperty(None)
-    set_fps              = ObjectProperty(None)
-    keep_aspect_ratio    = ObjectProperty(None)
-    set_width            = ObjectProperty(None)
-    set_height           = ObjectProperty(None)
-    button_original_size = ObjectProperty(None)
+    ## Upstream reference to TLM
+    tlm = ObjectProperty(None)
+
+    ## ui elements
+    ui_codec    = ObjectProperty(None)
+    ui_fps      = ObjectProperty(None)
+    ui_ratio    = ObjectProperty(None)
+    ui_width    = ObjectProperty(None)
+    ui_height   = ObjectProperty(None)
+    ui_original = ObjectProperty(None)
 
 
     ## ---------------------------------------

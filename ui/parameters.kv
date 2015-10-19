@@ -3,12 +3,12 @@
 
 <Parameters@BoxLayout>:
 
-    set_codec: _set_codec
-    set_fps: _set_fps
-    keep_aspect_ratio: _keep_aspect_ratio
-    set_width: _set_width
-    set_height: _set_height
-    button_original_size: _button_original_size
+    ui_codec:    _codec
+    ui_fps:      _fps
+    ui_ratio:    _ratio
+    ui_width:    _width
+    ui_height:   _height
+    ui_original: _original
 
     orientation: 'vertical'
     size_hint_y: None
@@ -27,7 +27,7 @@
             rectangle: self.pos[0], self.pos[1], self.width, self.height
             width: 2
     CodecSelector:
-        id: _set_codec
+        id: _codec
     BoxLayout:
         spacing: 5
         orientation: 'horizontal'
@@ -40,7 +40,7 @@
             valign: 'middle'
             text_size: self.size
         TextInput:
-            id: _set_fps
+            id: _fps
             text: str(root.fps_default)
             multiline: False
             halign: 'center'
@@ -61,7 +61,7 @@
             valign: 'middle'
             text_size: self.size
         CheckBox:
-            id: _keep_aspect_ratio
+            id: _ratio
             size_hint_x: None
             width: 40
             canvas:
@@ -82,7 +82,7 @@
             valign: 'middle'
             text_size: self.size
         TextInput:
-            id: _set_width
+            id: _width
             text: 'None'
             multiline: False
             halign: 'center'
@@ -102,7 +102,7 @@
             valign: 'middle'
             text_size: self.size
         TextInput:
-            id: _set_height
+            id: _height
             text: 'None'
             multiline: False
             halign: 'center'
@@ -111,7 +111,7 @@
             width: 120
             on_text_validate: root.enter_height()
     Button:
-        id: _button_original_size
+        id: _original
         size_hint_y: None
         height: 40
         text: 'original size'

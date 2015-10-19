@@ -1,7 +1,24 @@
+#:import tlm ui.core.tlm
+
 <TLM>:
-    topbar: _top_bar
-    viewer: _viewer
+
+    viewer:     _viewer
     parameters: _parameters
+
+    ## Topbar ui elements
+    ui_open:   _topbar.ui_open
+    ui_path:   _topbar.ui_path
+    ui_cancel: _topbar.ui_cancel
+    ui_save:   _topbar.ui_save
+    ui_render: _topbar.ui_render
+
+    ## Parameters ui elements
+    ui_codec:    _parameters.ui_codec
+    ui_fps:      _parameters.ui_fps
+    ui_ratio:    _parameters.ui_ratio
+    ui_width:    _parameters.ui_width
+    ui_height:   _parameters.ui_height
+    ui_original: _parameters.ui_original
 
     BoxLayout:
         canvas.before:
@@ -19,7 +36,7 @@
             size_hint_y: None
             height: 60
             TopBar:
-                id: _top_bar
+                id: _topbar
                 tlm: root
         BoxLayout:
             orientation: 'horizontal'
@@ -40,6 +57,7 @@
                             spacing: 7
                             Parameters:
                                 id: _parameters
+                                tlm: root
                             BoxLayout:
                                 orientation: 'vertical'
                     RelativeLayout:
