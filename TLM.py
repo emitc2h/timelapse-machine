@@ -122,11 +122,11 @@ class Root(FloatLayout):
             isColor=True
             )
 
-        self.tlm.viewer.slider.value = 0
+        self.tlm.ui_slider.value = 0
 
         self.render_clock = Clock.schedule_interval(self.render_frame, 0)
 
-        with self.tlm.viewer.screen.canvas.after:
+        with self.tlm.ui_screen.canvas.after:
             self.render_screen = Rectangle(
                 source='img/render_screen.png',
                 pos=self.tlm.viewer.pos,

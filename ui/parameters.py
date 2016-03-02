@@ -79,7 +79,7 @@ class Parameters(BoxLayout):
         """
 
         self.width_current = int(self.ui_width.text)
-        if self.keep_aspect_ratio.active:
+        if self.ui_ratio.active:
             self.height_current = int(self.width_current/self.aspect_ratio_current)
         else:
             self.aspect_ratio_current = float(self.width_current)/self.height_current
@@ -93,7 +93,7 @@ class Parameters(BoxLayout):
         """
 
         self.height_current = int(self.ui_height.text)
-        if self.keep_aspect_ratio.active:
+        if self.ui_ratio.active:
             self.width_current = int(self.height_current*self.aspect_ratio_current)
         else:
             self.aspect_ratio_current = float(self.width_current)/self.height_current
