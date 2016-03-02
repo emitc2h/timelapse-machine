@@ -98,7 +98,7 @@ class Root(FloatLayout):
         """
         if len(filename) > 0:
             self.path = os.path.join(path, filename[0])
-            self.tlm.topbar.path.text = '    ' + self.path
+            self.tlm.ui_path.text = '    ' + self.path
             self.tlm.viewer.load(self.path)
 
         self.dismiss_popup()

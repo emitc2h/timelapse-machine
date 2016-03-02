@@ -22,6 +22,7 @@
             size: 49,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_begin_disabled.png'
             background_normal: 'img/button_begin.png'
             background_down: 'img/button_begin_pressed.png'
             disabled: True
@@ -33,6 +34,7 @@
             size: 49,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_back_disabled.png'
             background_normal: 'img/button_back.png'
             background_down: 'img/button_back_pressed.png'
             disabled: True
@@ -44,6 +46,7 @@
             size: 49,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_reverse_disabled.png'
             background_normal: 'img/button_reverse.png'
             background_down: 'img/button_reverse_pressed.png'
             disabled: True
@@ -55,6 +58,7 @@
             size: 50,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_pause_disabled.png'
             background_normal: 'img/button_pause.png'
             background_down: 'img/button_pause_pressed.png'
             disabled: True
@@ -66,6 +70,7 @@
             size: 49,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_play_disabled.png'
             background_normal: 'img/button_play.png'
             background_down: 'img/button_play_pressed.png'
             disabled: True
@@ -77,6 +82,7 @@
             size: 49,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_forward_disabled.png'
             background_normal: 'img/button_forward.png'
             background_down: 'img/button_forward_pressed.png'
             disabled: True
@@ -88,15 +94,22 @@
             size: 49,60
             size_hint: None, None
             border: [0,0,0,0]
+            background_disabled_normal: 'img/button_end_disabled.png'
             background_normal: 'img/button_end.png'
             background_down: 'img/button_end_pressed.png'
             disabled: True
 
 
 <Viewer>:
-    screen: _screen
-    slider: _slider
-    controls: _controls
+    ui_screen:  _screen
+    ui_slider:  _slider
+    ui_begin:   _controls.begin
+    ui_back:    _controls.back
+    ui_reverse: _controls.reverse
+    ui_pause:   _controls.pause
+    ui_play:    _controls.play
+    ui_forward: _controls.forward
+    ui_end:     _controls.end
     orientation: 'vertical'
     padding: 10, 10, 10, 10
     Image:

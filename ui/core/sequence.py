@@ -49,7 +49,7 @@ class Sequence:
         total_size = self.n_frames * float(frame.shape[0]*frame.shape[1]*frame.shape[2]*8) / (1024)**3
         x = 2.0/math.sqrt(total_size)
 
-        frame = cv2.resize(frame, (int(x * frame.shape[1]), int(x * frame.shape[0])), interpolation=cv2.INTER_AREA)
+        frame = cv2.resize(frame, (min(int(self.aspect_ratio*1080), int(x * frame.shape[1])), min(1080, int(x * frame.shape[0]))), interpolation=cv2.INTER_AREA)
         frame = cv2.flip(frame, 0)
 
         self.frames.append(frame)

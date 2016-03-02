@@ -36,7 +36,7 @@ class Parameters(BoxLayout):
         Seize the FPS value upon pressing Enter while the focus is on the text field
         """
 
-        fps_text = self.set_fps.text
+        fps_text = self.ui_fps.text
         new_fps = self.fps_current
         try:
             new_fps = float(fps_text)
@@ -47,7 +47,7 @@ class Parameters(BoxLayout):
             new_fps = self.fps_current
 
         self.fps_current = new_fps
-        self.set_fps.text = str(self.fps_current)
+        self.ui_fps.text = str(self.fps_current)
 
 
     ## ---------------------------------------
@@ -56,8 +56,8 @@ class Parameters(BoxLayout):
         update fields
         """
 
-        self.set_width.text = str(self.width_current)
-        self.set_height.text = str(self.height_current)
+        self.ui_width.text = str(self.width_current)
+        self.ui_height.text = str(self.height_current)
 
 
     ## ---------------------------------------
@@ -78,7 +78,7 @@ class Parameters(BoxLayout):
         Enter the width
         """
 
-        self.width_current = int(self.set_width.text)
+        self.width_current = int(self.ui_width.text)
         if self.keep_aspect_ratio.active:
             self.height_current = int(self.width_current/self.aspect_ratio_current)
         else:
@@ -92,7 +92,7 @@ class Parameters(BoxLayout):
         Enter the width
         """
 
-        self.height_current = int(self.set_height.text)
+        self.height_current = int(self.ui_height.text)
         if self.keep_aspect_ratio.active:
             self.width_current = int(self.height_current*self.aspect_ratio_current)
         else:
