@@ -141,7 +141,7 @@ class Root(FloatLayout):
         Add one frame to the movie
         """
 
-        frame_path = self.tlm.viewer.sequence.files[self.tlm.viewer.slider.value]
+        frame_path = self.tlm.viewer.sequence.files[self.tlm.ui_slider.value]
 
         img = cv2.imread(frame_path)
         img = cv2.resize(
@@ -152,10 +152,10 @@ class Root(FloatLayout):
 
         self.out.write(img)
 
-        self.tlm.viewer.slider.value +=1
+        self.tlm.ui_slider.value +=1
 
         ## When done, do the following
-        if self.tlm.viewer.slider.value > self.tlm.viewer.sequence.n_frames -1:
+        if self.tlm.ui_slider.value > self.tlm.viewer.sequence.n_frames -1:
             self.out.release()
             os.rename(
                 '{0}{1}'.format(self.path.rstrip('/'), self.codec.ext),
@@ -165,7 +165,7 @@ class Root(FloatLayout):
             Clock.unschedule(self.render_clock)
             self.render_clock = None
 
-            self.tlm.viewer.screen.canvas.after.remove(self.render_screen)
+            self.tlm.ui_screen.canvas.after.remove(self.render_screen)
             self.tlm.viewer.enable()
 
 
